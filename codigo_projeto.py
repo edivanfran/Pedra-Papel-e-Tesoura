@@ -58,7 +58,7 @@ def receber_dados(conexao:s.socket):
             # Lembrar de colocar um cooldown quando alguém mandar a mensagem não ficar spamando jogadas.
             print("1. Papel, 2. Pedra, 3. Tesoura. ou sair")
             jogada_oponente = mensagem
-            salvar_mensagem_chat(f"Jogada: {mensagem}")
+            salvar_mensagem_chat(f"Jogada: {traduzir_a_jogada(mensagem)}")
             comparar_resultado()
         else:
             print("Chat: ", mensagem)
@@ -115,6 +115,18 @@ def comecar_jogo(conexao: s.socket):
     
 def foi_uma_jogada(texto: str) -> bool:
     return (texto == "1" or texto == "2" or texto == "3")
+
+def traduzir_a_jogada(jogada:str) -> str:
+    jogada = int(jogada)
+    match jogada:
+        case 1:
+            return "Papel"
+        case 2:
+            return "Pedra"
+        case 3:
+            return "Tesoura"
+        case _:
+            return "Jogada desconhecida"
 
 def salvar_mensagem_chat(mensagem:str):
     # Toda vez que uma mensagem foi recebida ou enviada ele vai existrar 
